@@ -1,56 +1,29 @@
-<h1>Cats!</h1>
-
-<h2>Cats that are not sleepy!</h2>
+<h1>Eat-da-Burger!</h1>
 
 <ul>
-  {{#each cats}}
-    {{#unless this.sleepy}}
-      <li>
-        {{this.name}}
+  {{#each burgers}}
+    <li>
+      <p>
+        {{this.id}}. {{this.burger}}
 
-        <form action="cats/update/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="sleepy" value="true">
-          <button type="submit">SLEEP TIME!</button>
+        <form action="/delete?_method=DELETE" method="POST">
+          <input type="hidden" name="id" value="{{this.id}}">
+          <button type="submit">Devour!</button>
         </form>
-
-        {{> cats/delete-cat}}
-      </li>
-    {{/unless}}
+      </p>
+    </li>
   {{/each}}
 </ul>
 
-<h2>Cats that are sleepy!</h2>
+<h2>Add Movie</h2>
+<form method="POST" action="/create" class="button-size">
+	<textarea type="text" name="burger"></textarea>
+	<button type="submit">Add Burger!</button>
+</form>
 
-<ul>
-  {{#each cats}}
-    {{#if this.sleepy}}
-      <li>
-        {{this.name}}
-
-        <form action="cats/update/{{this.id}}?_method=PUT" method="POST">
-          <input type="hidden" name="sleepy" value="false">
-          <button type="submit">WAKE UP!</button>
-        </form>
-
-        {{> cats/delete-cat}}
-      </li>
-    {{/if}}
-  {{/each}}
-</ul>
-
-<h2>Add a Cat</h2>
-<form class="create-update-form" action="cats/create" method="POST">
-
-  <div class="form-group">
-    <label for="ca">Cat Name:</label>
-    <input type="text" id="ca" name="name">
-  </div>
-
-  <div class="form-group">
-    <label for="slee">Sleepy?</label><br>
-    <input type="radio" name="sleepy" value="1" checked> Sleepy!<br>
-    <input type="radio" name="sleepy" value="0"> Awake
-  </div>
-
-  <button type="submit">Add Cat</button>
+<h2>Update Menu!</h2>
+<form action="/update?_method=PUT" method="POST" class="button-size">
+  <input type="text" name="id" placeholder="id">
+	<textarea type="text" name="burger" placeholder="plan"></textarea>
+	<button type="submit">Update Plan!</button>
 </form>
