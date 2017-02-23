@@ -1,21 +1,18 @@
-var orm = require("../config/orm.js");
-
-var burger = {
-    all: function (cb) {
-        orm.all("burgers", function (res) {
-            cb(res);
-        });
-    },
-    create: function (cols, vals, cb) {
-        orm.create("burgers", cols, vals, function (res) {
-            cb(res);
-        });
-    },
-    update: function (objColVals, condition, cb) {
-        orm.update("burgers", objColVals, condition, function (res) {
-            cb(res);
-        });
-    }
+module.exports = function(sequelize, DataTypes) {
+  var Author = sequelize.define("Author", {
+    // Giving the Author model a name of type STRING
+    name: DataTypes.STRING
+  },
+  // Here we'll pass a second "classMethods" object into the define method
+  // This is for any additional configuration we want to give our models
+    {
+      // We're saying that we want our Author to have Posts
+      classMethods: {
+        associate: function(models) {
+          // Associating Author with Posts
+          Author.hasMany(models.Post);
+        }
+      }
+    });
+  return Author;
 };
-
-module.exports = burger;
